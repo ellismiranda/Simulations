@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import math
+import sys
 
 """
 # No longer being used
@@ -91,14 +92,13 @@ def run(num_bandits, epochs, epsilon, allocated_serves):
 
 
 if __name__ == '__main__':
+    try:
+        num_bandits = sys.argv[1]
+        num_epochs = sys.argv[2]
+        epsilon = sys.argv[3]
+        serves = sys.argv[2]
 
-    num_bandits = 3
-    num_epochs = 100
-    epsilon = 0.2
-    serves = 10000
-
-    allocations = run(num_bandits, num_epochs, epsilon, serves)
-    graph_allocations(allocations)
-
-
-
+        allocations = run(num_bandits, num_epochs, epsilon, serves)
+        graph_allocations(allocations)
+    except IndexError:
+        print "Please ensure correct usage:  python multi_armed_bandit_simulation.py [number of bandits] [number of serves] [default epsilon]. Epsilon values should be between 0 and 1."
