@@ -2,6 +2,7 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import pandas as pd
 import random
+import sys
 
 
 class Bandit:
@@ -67,10 +68,13 @@ def run(num_bandits, epochs, epsilon, targets):
 
 
 if __name__ == '__main__':
-    n_bandits = 3
-    n_epochs = 1000
-    epsilon = 0.2
-    targets = ['successes', 'quality']
+    try:
+        n_bandits = int(sys.argv[1])
+        n_epochs = int(sys.argv[2])
+        epsilon = float(sys.argv[3])
+        targets = ['successes', 'quality']
 
-    logs = run(n_bandits, n_epochs, epsilon, targets)
-    graph_logs(logs)
+        logs = run(n_bandits, n_epochs, epsilon, targets)
+        graph_logs(logs)
+    except IndexError:
+        print "Please ensure correct usage:  python multi_armed_bandit_simulation.py [number of bandits] [number of epochs] [default epsilon]. Epsilon values should be between 0 and 1."
